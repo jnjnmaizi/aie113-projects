@@ -1,0 +1,13 @@
+{
+  "n": 128,
+  "correct": 124,
+  "accuracy": 0.96875,
+  "baseline": 0.3359375,
+  "brightness_agreement": 1.0,
+  "rotation_agreement": 0.984375,
+  "thresholds_fixed_before_run": {
+    "accuracy": 0.9,
+    "brightness_agreement": 0.95,
+    "rotation_agreement": 0.95
+  }
+}
