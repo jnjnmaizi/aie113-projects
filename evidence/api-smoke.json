@@ -1,0 +1,16 @@
+{
+  "ready": true,
+  "prediction": {
+    "label": "angular_leaf_spot",
+    "confidence": 0.9432013034820557,
+    "scores": {
+      "angular_leaf_spot": 0.9432013034820557,
+      "bean_rust": 0.03107512556016445,
+      "healthy": 0.02572353556752205
+    },
+    "not_sure": false,
+    "decision": "angular_leaf_spot",
+    "model_version": "1.0.0",
+    "notice": "Bean-leaf screening only; confidence is not proof. An agronomist must confirm."
+  }
+}
