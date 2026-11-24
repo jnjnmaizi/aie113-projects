@@ -67,8 +67,6 @@ their laptop, it is one long file, and nobody else can run it in production. Cho
 
 | Track | What the model does | Explanation it gives |
 |---|---|---|
-| [Stocks](tracks/stocks/) | Forecasts tomorrow's closing price of a Saudi stock, from real market data | Which recent signals pushed the forecast up or down |
-| [Fraud](tracks/fraud/) | Flags card transactions that look like fraud, from real (anonymised) bank data | The top reasons behind each alert |
 | [Vision](tracks/vision/) | Spots disease on bean leaves in real field photos, with a published model | Which part of the leaf the model looked at |
 
 ### Ask your agent
