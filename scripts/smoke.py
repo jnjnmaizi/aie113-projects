@@ -26,4 +26,17 @@ answer = response.json()
 assert len(answer["scores"]) == 3
 assert answer["label"] == max(answer["scores"], key=answer["scores"].get)
 assert httpx.get(url + "/docs").status_code == 200
-print(json.dumps({"ready": True, "prediction": answer}, indent=2))
+golden = json.loads((fixture.parent / "golden.json").read_text())
+for case in golden["cases"]:
+    response = httpx.post(
+        url + "/v1/predict",
+        files={"file": (case["file"], (fixture.parent / case["file"]).read_bytes(), "image/png")},
+        timeout=60,
+    )
+    response.raise_for_status()
+    actual = response.json()["scores"]
+    for label, expected in zip(("angular_leaf_spot", "bean_rust", "healthy"), case["scores"]):
+        assert abs(actual[label] - expected) <= 1e-5, (case["index"], label)
+print(
+    json.dumps({"ready": True, "golden_cases_verified": len(golden["cases"]), "prediction": answer}, indent=2)
+)

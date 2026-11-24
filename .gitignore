@@ -26,3 +26,5 @@ artifacts/
 .ruff_cache/
 *.bin
 secrets.local/
+
+evidence/server.txt

@@ -15,7 +15,7 @@ FROM python:3.12-slim AS runtime
 RUN groupadd --gid 10001 app && useradd --uid 10001 --gid app --create-home app
 WORKDIR /app
 COPY --from=dependencies /install /usr/local
-COPY --from=model /app/artifacts/model /app/artifacts/model
+COPY --from=model --chown=10001:10001 /app/artifacts/model /app/artifacts/model
 COPY src/ src/
 ENV PYTHONPATH=/app/src PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 \
     BEAN_MODEL_DIR=/app/artifacts/model HF_HUB_OFFLINE=1 OMP_NUM_THREADS=2

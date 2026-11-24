@@ -23,6 +23,7 @@ def decide(probabilities: list[float], threshold: float) -> Diagnosis:
     if not isclose(sum(probabilities), 1, abs_tol=1e-5):
         raise ValueError("Probabilities must sum to one")
     best = max(range(3), key=probabilities.__getitem__)
+    # Confidence is a model score, not a guarantee that the diagnosis is correct.
     unsure = probabilities[best] < threshold
     return Diagnosis(
         LABELS[best],

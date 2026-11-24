@@ -14,10 +14,10 @@ outputs/bean-vision/src/bean_vision/__init__.py                0      0   100%
 outputs/bean-vision/src/bean_vision/adapters/__init__.py       0      0   100%
 outputs/bean-vision/src/bean_vision/adapters/images.py        25      1    96%   28
 outputs/bean-vision/src/bean_vision/adapters/model.py         52      2    96%   18, 20
-outputs/bean-vision/src/bean_vision/api.py                   116      7    94%   45, 60, 74-76, 98, 118, 125
+outputs/bean-vision/src/bean_vision/api.py                   124      9    93%   54, 69, 83-85, 112, 116-117, 132, 139
 outputs/bean-vision/src/bean_vision/domain.py                 20      1    95%   20
 outputs/bean-vision/src/bean_vision/service.py                11      0   100%
 outputs/bean-vision/src/bean_vision/settings.py               12      0   100%
 ----------------------------------------------------------------------------------------
-TOTAL                                                        236     11    95%
-36 passed, 1 warning in 61.79s (0:01:01)
+TOTAL                                                        244     13    95%
+36 passed, 1 warning in 46.28s

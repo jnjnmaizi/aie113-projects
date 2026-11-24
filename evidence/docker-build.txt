@@ -1,0 +1,220 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.21kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 146B done
+#3 DONE 0.0s
+
+#4 [runtime 2/6] RUN groupadd --gid 10001 app && useradd --uid 10001 --gid app --create-home app
+#4 CACHED
+
+#5 [runtime 3/6] WORKDIR /app
+#5 CACHED
+
+#6 [model 1/6] FROM docker.io/library/python:3.12-slim@sha256:a0e2dd78cc679ddfffea960fe45ecfcff9ac2f68d67917a0edfcde5c2100151b
+#6 resolve docker.io/library/python:3.12-slim@sha256:a0e2dd78cc679ddfffea960fe45ecfcff9ac2f68d67917a0edfcde5c2100151b done
+#6 CACHED
+
+#7 [internal] load build context
+#7 transferring context: 4.54kB done
+#7 DONE 0.0s
+
+#8 [dependencies 2/4] WORKDIR /build
+#8 CACHED
+
+#9 [dependencies 3/4] COPY requirements.lock .
+#9 DONE 0.0s
+
+#10 [dependencies 4/4] RUN pip install --no-cache-dir --prefix=/install --extra-index-url https://download.pytorch.org/whl/cpu -r requirements.lock
+#10 0.715 Looking in indexes: https://pypi.org/simple, https://download.pytorch.org/whl/cpu, https://download.pytorch.org/whl/cpu
+#10 0.715 Ignoring colorama: markers 'sys_platform == "win32"' don't match your environment
+#10 0.715 Ignoring torch: markers 'sys_platform == "darwin"' don't match your environment
+#10 1.783 Collecting annotated-doc==0.0.7 (from -r requirements.lock (line 5))
+#10 2.370   Downloading annotated_doc-0.0.7-py3-none-any.whl.metadata (6.4 kB)
+#10 3.090 Collecting annotated-types==0.8.0 (from -r requirements.lock (line 7))
+#10 3.197   Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+#10 3.902 Collecting anyio==4.16.0 (from -r requirements.lock (line 9))
+#10 4.057   Downloading anyio-4.16.0-py3-none-any.whl.metadata (4.7 kB)
+#10 4.282 Collecting certifi==2026.11.20 (from -r requirements.lock (line 13))
+#10 4.422   Downloading certifi-2026.11.20-py3-none-any.whl.metadata (2.5 kB)
+#10 5.117 Collecting charset-normalizer==3.5.3 (from -r requirements.lock (line 15))
+#10 5.237   Downloading charset_normalizer-3.5.3-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (43 kB)
+#10 5.983 Collecting click==8.5.1 (from -r requirements.lock (line 17))
+#10 6.106   Downloading click-8.5.1-py3-none-any.whl.metadata (2.6 kB)
+#10 6.906 Collecting fastapi==0.165.0 (from -r requirements.lock (line 21))
+#10 7.028   Downloading fastapi-0.165.0-py3-none-any.whl.metadata (27 kB)
+#10 7.412 Collecting filelock==4.3.1 (from -r requirements.lock (line 23))
+#10 7.531   Downloading filelock-4.3.1-py3-none-any.whl.metadata (2.3 kB)
+#10 7.803 Collecting fsspec==2026.9.0 (from -r requirements.lock (line 28))
+#10 7.953   Downloading fsspec-2026.9.0-py3-none-any.whl.metadata (10 kB)
+#10 8.630 Collecting h11==0.16.0 (from -r requirements.lock (line 32))
+#10 8.748   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+#10 9.433 Collecting hf-xet==1.8.0 (from -r requirements.lock (line 34))
+#10 9.579   Downloading hf_xet-1.8.0-cp38-abi3-manylinux_2_28_aarch64.whl.metadata (4.9 kB)
+#10 10.35 Collecting huggingface-hub==0.36.2 (from -r requirements.lock (line 36))
+#10 10.48   Downloading huggingface_hub-0.36.2-py3-none-any.whl.metadata (15 kB)
+#10 10.92 Collecting idna==3.20 (from -r requirements.lock (line 40))
+#10 11.04   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+#10 11.24 Collecting jinja2==3.1.6 (from -r requirements.lock (line 44))
+#10 11.29   Downloading https://download.pytorch.org/whl/jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+#10 11.63 Collecting markupsafe==3.0.4 (from -r requirements.lock (line 46))
+#10 11.80   Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (2.7 kB)
+#10 12.02 Collecting mpmath==1.3.0 (from -r requirements.lock (line 48))
+#10 12.14   Downloading mpmath-1.3.0-py3-none-any.whl.metadata (8.6 kB)
+#10 12.41 Collecting networkx==3.7 (from -r requirements.lock (line 50))
+#10 12.53   Downloading networkx-3.7-py3-none-any.whl.metadata (6.7 kB)
+#10 14.19 Collecting numpy==2.5.5 (from -r requirements.lock (line 52))
+#10 14.31   Downloading numpy-2.5.5-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl.metadata (6.6 kB)
+#10 14.95 Collecting opentelemetry-api==1.45.2 (from -r requirements.lock (line 56))
+#10 15.07   Downloading opentelemetry_api-1.45.2-py3-none-any.whl.metadata (1.4 kB)
+#10 15.28 Collecting packaging==26.4 (from -r requirements.lock (line 58))
+#10 15.39   Downloading packaging-26.4-py3-none-any.whl.metadata (3.5 kB)
+#10 16.38 Collecting pillow==13.0.0 (from -r requirements.lock (line 62))
+#10 16.51   Downloading pillow-13.0.0-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl.metadata (9.1 kB)
+#10 17.49 Collecting pydantic==2.14.4 (from -r requirements.lock (line 65))
+#10 17.63   Downloading pydantic-2.14.4-py3-none-any.whl.metadata (143 kB)
+#10 19.96 Collecting pydantic-core==2.50.5 (from -r requirements.lock (line 69))
+#10 20.07   Downloading pydantic_core-2.50.5-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.whl.metadata (6.6 kB)
+#10 20.72 Collecting pydantic-settings==2.16.3 (from -r requirements.lock (line 71))
+#10 20.84   Downloading pydantic_settings-2.16.3-py3-none-any.whl.metadata (4.0 kB)
+#10 21.48 Collecting python-dotenv==1.2.4 (from -r requirements.lock (line 73))
+#10 21.60   Downloading python_dotenv-1.2.4-py3-none-any.whl.metadata (29 kB)
+#10 22.30 Collecting python-multipart==0.0.34 (from -r requirements.lock (line 75))
+#10 22.40   Downloading python_multipart-0.0.34-py3-none-any.whl.metadata (6.3 kB)
+#10 23.13 Collecting pyyaml==6.0.4 (from -r requirements.lock (line 77))
+#10 23.28   Downloading pyyaml-6.0.4-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (2.3 kB)
+#10 24.68 Collecting regex==2026.11.23 (from -r requirements.lock (line 81))
+#10 24.81   Downloading regex-2026.11.23-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (40 kB)
+#10 25.11 Collecting requests==2.34.2 (from -r requirements.lock (line 83))
+#10 25.23   Downloading requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+#10 26.05 Collecting safetensors==0.8.0 (from -r requirements.lock (line 87))
+#10 26.19   Downloading safetensors-0.8.0-cp310-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl.metadata (4.2 kB)
+#10 26.58 Collecting setuptools==84.2.1 (from -r requirements.lock (line 89))
+#10 26.73   Downloading setuptools-84.2.1-py3-none-any.whl.metadata (6.6 kB)
+#10 27.56 Collecting starlette==1.10.0 (from -r requirements.lock (line 91))
+#10 27.68   Downloading starlette-1.10.0-py3-none-any.whl.metadata (6.6 kB)
+#10 27.99 Collecting sympy==1.14.0 (from -r requirements.lock (line 93))
+#10 28.12   Downloading sympy-1.14.0-py3-none-any.whl.metadata (12 kB)
+#10 28.98 Collecting tokenizers==0.22.2 (from -r requirements.lock (line 95))
+#10 29.10   Downloading tokenizers-0.22.2-cp39-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl.metadata (7.3 kB)
+#10 29.55 Collecting torch==2.9.1+cpu (from -r requirements.lock (line 100))
+#10 30.04   Downloading https://download-r2.pytorch.org/whl/cpu/torch-2.9.1%2Bcpu-cp312-cp312-manylinux_2_28_aarch64.whl.metadata (29 kB)
+#10 30.27 Collecting tqdm==4.70.1 (from -r requirements.lock (line 105))
+#10 30.38   Downloading tqdm-4.70.1-py3-none-any.whl.metadata (57 kB)
+#10 31.14 Collecting transformers==4.57.6 (from -r requirements.lock (line 109))
+#10 31.27   Downloading transformers-4.57.6-py3-none-any.whl.metadata (43 kB)
+#10 31.60 Collecting typing-extensions==4.16.0 (from -r requirements.lock (line 111))
+#10 31.72   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+#10 32.27 Collecting typing-inspection==0.4.5 (from -r requirements.lock (line 123))
+#10 32.40   Downloading typing_inspection-0.4.5-py3-none-any.whl.metadata (2.6 kB)
+#10 32.79 Collecting urllib3==2.8.0 (from -r requirements.lock (line 128))
+#10 32.91   Downloading urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+#10 33.64 Collecting uvicorn==0.54.0 (from -r requirements.lock (line 130))
+#10 33.76   Downloading uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+#10 34.01 Downloading annotated_doc-0.0.7-py3-none-any.whl (5.3 kB)
+#10 34.14 Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+#10 34.29 Downloading anyio-4.16.0-py3-none-any.whl (134 kB)
+#10 34.48 Downloading certifi-2026.11.20-py3-none-any.whl (127 kB)
+#10 34.68 Downloading charset_normalizer-3.5.3-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (239 kB)
+#10 34.96 Downloading click-8.5.1-py3-none-any.whl (126 kB)
+#10 35.28 Downloading fastapi-0.165.0-py3-none-any.whl (159 kB)
+#10 35.51 Downloading filelock-4.3.1-py3-none-any.whl (244 kB)
+#10 35.84 Downloading fsspec-2026.9.0-py3-none-any.whl (221 kB)
+#10 36.06 Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+#10 36.20 Downloading hf_xet-1.8.0-cp38-abi3-manylinux_2_28_aarch64.whl (4.1 MB)
+#10 38.57    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.1/4.1 MB 1.7 MB/s eta 0:00:00
+#10 38.74 Downloading huggingface_hub-0.36.2-py3-none-any.whl (566 kB)
+#10 38.99    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 566.4/566.4 kB 2.4 MB/s eta 0:00:00
+#10 39.12 Downloading idna-3.20-py3-none-any.whl (69 kB)
+#10 39.20 Downloading https://download.pytorch.org/whl/jinja2-3.1.6-py3-none-any.whl (134 kB)
+#10 39.37 Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (24 kB)
+#10 39.55 Downloading mpmath-1.3.0-py3-none-any.whl (536 kB)
+#10 39.81    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 536.2/536.2 kB 2.3 MB/s eta 0:00:00
+#10 39.92 Downloading networkx-3.7-py3-none-any.whl (2.1 MB)
+#10 41.12    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 1.8 MB/s eta 0:00:00
+#10 41.29 Downloading numpy-2.5.5-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl (15.3 MB)
+#10 49.48    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 15.3/15.3 MB 1.9 MB/s eta 0:00:00
+#10 49.60 Downloading opentelemetry_api-1.45.2-py3-none-any.whl (60 kB)
+#10 49.78 Downloading packaging-26.4-py3-none-any.whl (140 kB)
+#10 49.97 Downloading pillow-13.0.0-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl (6.5 MB)
+#10 54.20    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.5/6.5 MB 1.5 MB/s eta 0:00:00
+#10 54.33 Downloading pydantic-2.14.4-py3-none-any.whl (494 kB)
+#10 54.88 Downloading pydantic_core-2.50.5-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.whl (2.1 MB)
+#10 57.27    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 868.6 kB/s eta 0:00:00
+#10 57.39 Downloading pydantic_settings-2.16.3-py3-none-any.whl (82 kB)
+#10 57.64 Downloading python_dotenv-1.2.4-py3-none-any.whl (23 kB)
+#10 57.76 Downloading python_multipart-0.0.34-py3-none-any.whl (32 kB)
+#10 57.91 Downloading pyyaml-6.0.4-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (814 kB)
+#10 59.08    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 814.7/814.7 kB 709.7 kB/s eta 0:00:00
+#10 59.28 Downloading regex-2026.11.23-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (808 kB)
+#10 60.33    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 808.0/808.0 kB 759.6 kB/s eta 0:00:00
+#10 60.45 Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+#10 60.68 Downloading safetensors-0.8.0-cp310-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (502 kB)
+#10 61.70 Downloading setuptools-84.2.1-py3-none-any.whl (876 kB)
+#10 63.55    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 876.3/876.3 kB 433.2 kB/s eta 0:00:00
+#10 63.72 Downloading starlette-1.10.0-py3-none-any.whl (80 kB)
+#10 64.07 Downloading sympy-1.14.0-py3-none-any.whl (6.3 MB)
+#10 71.71    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.3/6.3 MB 834.1 kB/s eta 0:00:00
+#10 71.85 Downloading tokenizers-0.22.2-cp39-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (3.3 MB)
+#10 74.75    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.3/3.3 MB 1.1 MB/s eta 0:00:00
+#10 74.92 Downloading https://download-r2.pytorch.org/whl/cpu/torch-2.9.1%2Bcpu-cp312-cp312-manylinux_2_28_aarch64.whl (104.1 MB)
+#10 98.14    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 104.1/104.1 MB 4.5 MB/s eta 0:00:00
+#10 98.28 Downloading tqdm-4.70.1-py3-none-any.whl (80 kB)
+#10 98.47 Downloading transformers-4.57.6-py3-none-any.whl (12.0 MB)
+#10 108.9    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.0/12.0 MB 1.2 MB/s eta 0:00:00
+#10 109.1 Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+#10 109.2 Downloading typing_inspection-0.4.5-py3-none-any.whl (14 kB)
+#10 109.3 Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+#10 109.6 Downloading uvicorn-0.54.0-py3-none-any.whl (87 kB)
+#10 109.8 Installing collected packages: mpmath, urllib3, typing-extensions, tqdm, sympy, setuptools, safetensors, regex, pyyaml, python-multipart, python-dotenv, pillow, packaging, numpy, networkx, markupsafe, idna, hf-xet, h11, fsspec, filelock, click, charset-normalizer, certifi, annotated-types, annotated-doc, uvicorn, typing-inspection, requests, pydantic-core, opentelemetry-api, jinja2, anyio, torch, starlette, pydantic, huggingface-hub, tokenizers, pydantic-settings, fastapi, transformers
+#10 122.8 Successfully installed annotated-doc-0.0.7 annotated-types-0.8.0 anyio-4.16.0 certifi-2026.11.20 charset-normalizer-3.5.3 click-8.5.1 fastapi-0.165.0 filelock-4.3.1 fsspec-2026.9.0 h11-0.16.0 hf-xet-1.8.0 huggingface-hub-0.36.2 idna-3.20 jinja2-3.1.6 markupsafe-3.0.4 mpmath-1.3.0 networkx-3.7 numpy-2.5.5 opentelemetry-api-1.45.2 packaging-26.4 pillow-13.0.0 pydantic-2.14.4 pydantic-core-2.50.5 pydantic-settings-2.16.3 python-dotenv-1.2.4 python-multipart-0.0.34 pyyaml-6.0.4 regex-2026.11.23 requests-2.34.2 safetensors-0.8.0 setuptools-84.2.1 starlette-1.10.0 sympy-1.14.0 tokenizers-0.22.2 torch-2.9.1+cpu tqdm-4.70.1 transformers-4.57.6 typing-extensions-4.16.0 typing-inspection-0.4.5 urllib3-2.8.0 uvicorn-0.54.0
+#10 122.8 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#10 124.3 
+#10 124.3 [notice] A new release of pip is available: 25.0.1 -> 26.3
+#10 124.3 [notice] To update, run: pip install --upgrade pip
+#10 DONE 124.9s
+
+#11 [runtime 4/6] COPY --from=dependencies /install /usr/local
+#11 DONE 3.9s
+
+#12 [model 2/6] COPY --from=dependencies /install /usr/local
+#12 DONE 3.9s
+
+#13 [model 3/6] WORKDIR /app
+#13 DONE 0.1s
+
+#14 [model 4/6] COPY model_manifest.json .
+#14 DONE 0.0s
+
+#15 [model 5/6] COPY scripts/download_model.py scripts/download_model.py
+#15 DONE 0.0s
+
+#16 [model 6/6] RUN python scripts/download_model.py
+#16 78.26 Pinned public model saved to artifacts/model
+#16 DONE 161.6s
+
+#17 [runtime 5/6] COPY --from=model /app/artifacts/model /app/artifacts/model
+#17 DONE 0.3s
+
+#18 [runtime 6/6] COPY src/ src/
+#18 DONE 0.0s
+
+#19 exporting to image
+#19 exporting layers
+#19 exporting layers 13.5s done
+#19 exporting manifest sha256:c39e9a69b829ec6b7d733278586adb4bb1ff17e6f833b5bc3c899ede2ceb795c done
+#19 exporting config sha256:bea4574e63e23e1432be58ef5331141b7e9439b20eb8b29ec83608d79fc4f617 done
+#19 exporting attestation manifest sha256:9dae8d2f25700e897195ff6af88ba50a7b78aed8b7ad4873658c6dbc425b9825 done
+#19 exporting manifest list sha256:540d90d8b24e8a3fedbbe2874619dddb38b895f25250b6b9ae311bf0f63677f3 done
+#19 naming to docker.io/library/bean-vision:local done
+#19 unpacking to docker.io/library/bean-vision:local
+#19 unpacking to docker.io/library/bean-vision:local 4.6s done
+#19 DONE 18.2s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/plmg0g9hbprdz6eyp62ii493w

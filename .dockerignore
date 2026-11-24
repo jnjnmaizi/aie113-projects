@@ -6,3 +6,5 @@
 !scripts/
 !scripts/download_model.py
 !model_manifest.json
+**/__pycache__/
+**/*.pyc

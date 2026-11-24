@@ -10,7 +10,8 @@
 - ثبات التصنيف بعد زيادة الإضاءة 10%: **100%**؛ وبعد دوران 5 درجات: **98.4375%**.
 - 36 اختباراً ناجحاً؛ تغطية الكود **95%** في التشغيل المسجل.
 - تم تشغيل API فعلياً واختبار طلب توقع وفتح `/docs`.
-- Docker وGitHub Actions مجهزان؛ نتائج تشغيلهما وإعداد حماية الفرع **معلقة**، وليست ناجحة بمجرد وجود الملفات.
+- Docker بُني وشُغل: healthy، مستخدم 10001، وتطابق خمس صور عبر الحاوية. حجم الصورة 1886.2 MiB.
+- ملفات GitHub Actions جاهزة؛ راجع حالة طلب الدمج للفحوص السحابية. حماية الفرع والنشر بعد الدمج لم يُنفذا.
 
 الأدلة: `evidence/tests.txt`, `evidence/notebook-run.txt`, `evidence/behaviour.json`, `evidence/api-smoke.json`.
 
@@ -50,7 +51,7 @@ src/bean_vision/
   api.py             الطلبات والردود والأخطاء والجاهزية
 scripts/             تنزيل النموذج وتجربة التشغيل والكسر المقصود
 tracks/vision/       الدفتر الأصلي مع إصلاح تحميل البيانات موثق
- tests/              اختبارات البرنامج والنموذج وصور مرجعية صغيرة
+tests/              اختبارات البرنامج والنموذج وصور مرجعية صغيرة
 secrets/             قيمة تدريبية مشفرة؛ لا يوجد مفتاح خاص هنا
 .github/workflows/   الفحص والبناء والنشر واختبارات النموذج
 ```
@@ -99,11 +100,13 @@ ruff check src tests scripts
 
 ```bash
 docker compose up --build -d
-python scripts/smoke.py
+python scripts/smoke.py http://localhost:8014
 docker compose ps
 docker compose exec api id
 docker image inspect bean-vision:local --format '{{.Size}}'
 ```
+
+بعد تشغيل Compose افتح http://localhost:8014/docs. المنفذ 8014 افتراضي لتجنب التعارض؛ لتغييره استخدم متغير BEAN_PORT.
 
 اختيارنا الأول PyTorch CPU للحفاظ على سلوك الدفتر. يثبت `requirements.lock` إصدارات المكتبات ويثبت `model_manifest.json` مراجعة النموذج والبيانات. النموذج داخل الصورة النهائية؛ التشغيل لا يحتاج تنزيله ولا مفتاحاً. المستخدم `10001`، ونظام الملفات للقراءة فقط في Compose، والمنفذ محلي. صور Python الأساسية ذات وسم متحرك وليست digest ثابتاً؛ ذلك حد معروف لإعادة الإنتاج التامة. تحسين ONNX اختياري يحتاج قياس تطابق وحجم مستقلين.
 
