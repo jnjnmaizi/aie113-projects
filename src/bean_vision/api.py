@@ -2,9 +2,12 @@ import asyncio
 from contextlib import asynccontextmanager
 from dataclasses import asdict
 import logging
+from pathlib import Path
 from fastapi import FastAPI, File, UploadFile
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, Response
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from starlette.exceptions import HTTPException
 from starlette.concurrency import run_in_threadpool
@@ -102,6 +105,13 @@ def create_app(settings: Settings | None = None, model_factory=None) -> FastAPI:
     )
     app.add_middleware(BodyLimit, max_bytes=settings.max_upload_bytes + 65536)
     app.state.service = None
+
+    static_dir = Path(__file__).parent / "static"
+    app.mount("/static", StaticFiles(directory=static_dir), name="static")
+
+    @app.get("/", include_in_schema=False)
+    async def frontend():
+        return FileResponse(static_dir / "index.html")
 
     @app.exception_handler(RequestValidationError)
     async def invalid_request(request, exc):
