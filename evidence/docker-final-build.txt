@@ -1,0 +1,73 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.23kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 173B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 636B done
+#4 DONE 0.0s
+
+#5 [model 1/6] FROM docker.io/library/python:3.12-slim@sha256:a0e2dd78cc679ddfffea960fe45ecfcff9ac2f68d67917a0edfcde5c2100151b
+#5 resolve docker.io/library/python:3.12-slim@sha256:a0e2dd78cc679ddfffea960fe45ecfcff9ac2f68d67917a0edfcde5c2100151b done
+#5 DONE 0.0s
+
+#6 [dependencies 2/4] WORKDIR /build
+#6 CACHED
+
+#7 [runtime 2/6] RUN groupadd --gid 10001 app && useradd --uid 10001 --gid app --create-home app
+#7 CACHED
+
+#8 [dependencies 4/4] RUN pip install --no-cache-dir --prefix=/install --extra-index-url https://download.pytorch.org/whl/cpu -r requirements.lock
+#8 CACHED
+
+#9 [runtime 3/6] WORKDIR /app
+#9 CACHED
+
+#10 [dependencies 3/4] COPY requirements.lock .
+#10 CACHED
+
+#11 [runtime 4/6] COPY --from=dependencies /install /usr/local
+#11 CACHED
+
+#12 [model 5/6] COPY scripts/download_model.py scripts/download_model.py
+#12 CACHED
+
+#13 [model 4/6] COPY model_manifest.json .
+#13 CACHED
+
+#14 [model 2/6] COPY --from=dependencies /install /usr/local
+#14 CACHED
+
+#15 [model 3/6] WORKDIR /app
+#15 CACHED
+
+#16 [model 6/6] RUN python scripts/download_model.py
+#16 CACHED
+
+#17 [runtime 5/6] COPY --from=model --chown=10001:10001 /app/artifacts/model /app/artifacts/model
+#17 DONE 0.3s
+
+#18 [runtime 6/6] COPY src/ src/
+#18 DONE 0.0s
+
+#19 exporting to image
+#19 exporting layers
+#19 exporting layers 5.9s done
+#19 exporting manifest sha256:d21660bc0b28ea8dbe028ce50602ed1edd4a4b4136c47c5a38ffc83a918612b4 done
+#19 exporting config sha256:c2eefb38f0cf06c9ed9982fa11606f065359afbcd16ebcf593ce9947c4ba6c4c done
+#19 exporting attestation manifest sha256:af2785ae77297cdb45140b8547d1fce81251a238a597b44ae194676504c5578a 0.0s done
+#19 exporting manifest list sha256:61cbdfa6259ec6a6a9686c79ca7ce4b5a6c9099e7dc74fa7b71a7c21f672a0a2 0.0s done
+#19 naming to docker.io/library/bean-vision:local done
+#19 unpacking to docker.io/library/bean-vision:local
+#19 unpacking to docker.io/library/bean-vision:local 1.6s done
+#19 DONE 7.6s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/0v7wuqv67obfga3t12vwzod0s

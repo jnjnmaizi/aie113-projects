@@ -1,0 +1,9 @@
+{
+  "model_id": "nateraw/vit-base-beans",
+  "revision": "41f85ace09a4613c2c65495b3b8465c4ceee1d00",
+  "model_version": "1.0.0",
+  "dataset_id": "AI-Lab-Makerere/beans",
+  "dataset_revision": "27aa014ce09b193e1a6f58112d4a66e0eddb69c5",
+  "model_license": "Apache-2.0",
+  "dataset_license": "MIT"
+}

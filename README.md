@@ -1,105 +1,138 @@
-# SDA-AIE-113 group projects
+# Bean Leaf Vision — مشروع مسار الرؤية
 
-The final project of **SDA-AIE-113 · Software Engineering Practices for AI Systems**
-(SDAIA Academy). Your group takes a real data-science notebook and, with an AI coding agent,
-turns it into a production-style AI service. You do not write code by hand. **You decide, you
-check, and you understand.** Understanding the process is full marks.
+خدمة تعليمية لتصنيف صور أوراق الفاصوليا: `angular_leaf_spot`، `bean_rust`، `healthy`.
+النموذج جاهز ومدرّب مسبقاً؛ لم ندرّبه. أُنجز العمل المحلي بمساعدة الوكيل، ويجب على المجموعة مراجعة الشرح والسجل قبل التسليم.
 
-Workshop site: https://aie113.ibrahimalshehri.sa · [بالعربية](#بالعربية)
+## النتائج المقاسة
 
-## Our track: Vision
+- 124 من 128 صورة صحيحة: **96.875%**؛ خط الأساس **33.59375%**.
+- تطابق خمس صور مع حسابات الدفتر قبل إعادة التنظيم، بهامش `1e-5`.
+- ثبات التصنيف بعد زيادة الإضاءة 10%: **100%**؛ وبعد دوران 5 درجات: **98.4375%**.
+- 36 اختباراً ناجحاً؛ تغطية الكود **95%** في التشغيل المسجل.
+- تم تشغيل API فعلياً واختبار طلب توقع وفتح `/docs`.
+- Docker بُني وشُغل: healthy، مستخدم 10001، وتطابق خمس صور عبر الحاوية. حجم الصورة 1886.2 MiB.
+- ملفات GitHub Actions جاهزة؛ راجع حالة طلب الدمج للفحوص السحابية. حماية الفرع والنشر بعد الدمج لم يُنفذا.
 
-Every track uses real data, and every model explains its answers.
+الأدلة: `evidence/tests.txt`, `evidence/notebook-run.txt`, `evidence/behaviour.json`, `evidence/api-smoke.json`.
 
-| Track | The model | Open the notebook |
-|---|---|---|
-| [**Vision**](tracks/vision/) | Spots disease on bean leaves in real field photos with a published model, and shows which part of the leaf it looked at. | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/snow10100/aie113-projects/blob/main/tracks/vision/notebook.ipynb) |
+## ابدأ هنا
 
-Each track's README explains its model in plain words, for people who have never seen machine
-learning.
+من مجلد المشروع، باستخدام Python 3.12:
 
-## The journey
+```bash
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install --extra-index-url https://download.pytorch.org/whl/cpu -r requirements-dev.lock
+python scripts/download_model.py
+python -m uvicorn bean_vision.api:app --app-dir src --host 127.0.0.1 --port 8000 --no-access-log
+```
 
-**0** Meet your model → **1** Reorganise it (clean architecture) → **2** Put an API in front of it
-(FastAPI) → **3** Put it in a container (Docker) → **4** Test it → **5** Automate it (GitHub
-Actions) → **6** Handle secrets the modern way → *optional:* a front end with Vite and React.
+في Windows، فعّل البيئة عبر `.venv\Scripts\Activate.ps1`، واستعمل `curl.exe` بدلاً من `curl`.
 
-[**GUIDE.md**](GUIDE.md) explains each stage: the idea, what to ask your agent, how to see for
-yourself what it built, and when the stage is done. No code to copy: your agent writes the code,
-the guide makes sure you understand it.
+افتح http://localhost:8000/docs، ثم `/v1/predict` ← **Try it out** ← ارفع `tests/fixtures/leaf-0.png` ← **Execute**.
 
-## How to start
+```bash
+curl -F 'file=@tests/fixtures/leaf-0.png;type=image/png' http://localhost:8000/v1/predict
+curl -F 'file=@tests/fixtures/leaf-50.png;type=image/png' http://localhost:8000/v1/explain -o explanation.png
+python scripts/smoke.py http://localhost:8000
+```
 
-1. **Form a group** of any size. At least one member needs an AI coding agent backed by a
-   frontier model (for example Claude Code, GitHub Copilot in agent mode, Cursor, Codex or
-   Gemini CLI).
-2. **Pick a track** and run its notebook in Colab, top to bottom.
-3. **Make your group's repository**: fork this one (or download it), then ask your agent to keep
-   only your track. `AGENTS.md` tells every common coding agent to explain each step to you as
-   it works.
-4. **Follow [GUIDE.md](GUIDE.md)** stage by stage, and keep [JOURNAL.md](JOURNAL.md): one entry
-   per stage.
+`explain` أبطأ: يختبر 169 تغطية جزئية. اللون الأزرق يعني أن إخفاء المنطقة خفّض ثقة النموذج، وليس أن المنطقة مثبتة الإصابة.
 
-A first sentence for your agent:
+## بنية المشروع
 
-    Read AGENTS.md, GUIDE.md and tracks/<track>/README.md. Explain our model to us in plain words,
-    then guide us through Stage 1 one step at a time.
+```text
+src/bean_vision/
+  domain.py          قاعدة القرار والفئات؛ لا يستورد إطار الويب أو النموذج
+  service.py         ينسق التوقع من خلال واجهة قابلة للاستبدال
+  settings.py        حد الثقة والحجم والمسارات وإعدادات الأسرار
+  adapters/images.py التحقق من الصورة وتحويلها إلى RGB
+  adapters/model.py  تجهيز 224×224 وتشغيل النموذج والتفسير
+  api.py             الطلبات والردود والأخطاء والجاهزية
+scripts/             تنزيل النموذج وتجربة التشغيل والكسر المقصود
+tracks/vision/       الدفتر الأصلي مع إصلاح تحميل البيانات موثق
+tests/              اختبارات البرنامج والنموذج وصور مرجعية صغيرة
+secrets/             قيمة تدريبية مشفرة؛ لا يوجد مفتاح خاص هنا
+.github/workflows/   الفحص والبناء والنشر واختبارات النموذج
+```
 
-## What you hand in
+اتجاه الاعتماد: API → service → domain. محول النموذج يحقق الواجهة التي يحتاجها service. لتغيير النموذج نعدل المحول؛ لتغيير حد الثقة نعدل الإعدادات.
 
-Your repository, your journal, and a short walkthrough where any member can explain any stage.
-Code quality, speed and the front end are not graded.
+## عقد الخدمة
 
----
+| المسار | الغرض |
+|---|---|
+| `GET /health` | البرنامج حي |
+| `GET /ready` | النموذج محمّل، أو 503 إذا تعذر تحميله |
+| `POST /v1/predict` | صورة JPEG/PNG في حقل multipart اسمه `file` |
+| `POST /v1/explain` | الصورة نفسها؛ يرجع PNG لخريطة التفسير |
 
-<div dir="rtl" lang="ar">
+الحد الافتراضي 5 MiB للصورة و16 مليون بكسل. الطلبات المتزامنة أثناء انشغال النموذج تحصل على 429 لإعادة المحاولة.
 
-## بالعربية
+رد حقيقي مختصر للصورة 0:
 
-المشروع الختامي لورشة **ممارسات هندسة البرمجيات لأنظمة الذكاء الاصطناعي (SDA-AIE-113)** في
-أكاديمية سدايا. تبدأ مجموعتك من دفتر (notebook) حقيقي لعالِم بيانات، وتحوّله بمساعدة وكيل
-برمجة ذكي إلى خدمة ذكاء اصطناعي بمعايير الإنتاج. لن تكتبوا الكود بأيديكم: **أنتم تقررون،
-وتتحققون، وتفهمون.** فهم العملية يعني الدرجة الكاملة.
+```json
+{"label":"angular_leaf_spot","confidence":0.9432013,"not_sure":false,"decision":"angular_leaf_spot","model_version":"1.0.0"}
+```
 
-### مسارنا: الرؤية الحاسوبية
+يتضمن الرد الكامل درجات الفئات الثلاث وتنبيهاً لحدود الاستخدام. أقل من 80% يعيد `decision: "not_sure"`، مع الاحتفاظ بأعلى فئة في `label` لتوضيح حساب النموذج.
 
-كل مسار يستخدم بيانات حقيقية، وكل نموذج يشرح إجاباته:
+الأخطاء لها الشكل نفسه، مثل:
 
-- **الرؤية الحاسوبية:** يكتشف أمراض أوراق الفاصوليا في صور حقيقية من الحقول بنموذج منشور،
-  ويُظهر الجزء الذي نظر إليه النموذج في الورقة.
+```json
+{"error":{"code":"unsupported_type","message":"Use a JPEG or PNG image"}}
+```
 
-يشرح ملف README.ar.md في مجلد كل مسار النموذج بكلمات بسيطة لمن لم يتعامل مع تعلم الآلة من قبل.
+## الاختبارات
 
-### الرحلة
+```bash
+python -m pytest -m 'not real' -q
+python -m pytest -m real -q
+python -m pytest --cov=bean_vision --cov-report=term-missing
+python scripts/deliberate_break.py
+ruff check src tests scripts
+```
 
-**0** تعرّف على نموذجك ← **1** أعد تنظيمه (المعمارية النظيفة) ← **2** ضع أمامه واجهة برمجية
-(FastAPI) ← **3** ضعه في حاوية (Docker) ← **4** اختبره ← **5** أتمته (GitHub Actions) ← **6**
-تعامل مع الأسرار بالطرق الحديثة ← *اختياري:* واجهة أمامية بـ Vite وReact.
+تحتاج اختبارات `real` تنزيل النموذج والاتصال الأول لتنزيل بيانات الاختبار. غياب النموذج يفشل الاختبار ولا يحوله إلى نجاح أو تخطٍ صامت.
+الكسر المقصود يعكس قاعدة الثقة في عملية Python منفصلة؛ ظهور فشل اختبارين هو النتيجة المتوقعة لهذه التجربة، ولا يغير المصدر.
 
-يشرح الدليل [GUIDE.ar.md](GUIDE.ar.md) كل مرحلة: الفكرة، وما تطلبه من وكيلك، وكيف ترى بنفسك
-ما بناه، ومتى تنتهي المرحلة. لا يوجد كود للنسخ: الوكيل يكتب الكود، والدليل يضمن أنك تفهمه.
+## الحاوية والأتمتة
 
-### كيف تبدأ
+```bash
+docker compose up --build -d
+python scripts/smoke.py http://localhost:8014
+docker compose ps
+docker compose exec api id
+docker image inspect bean-vision:local --format '{{.Size}}'
+```
 
-1. **كوّنوا مجموعة** بأي عدد. يحتاج عضو واحد على الأقل إلى وكيل برمجة ذكي يعمل بنموذج متقدم
-   (مثل Claude Code أو GitHub Copilot في وضع الوكيل أو Cursor أو Codex أو Gemini CLI).
-2. **اختاروا مسارًا** وشغّلوا دفتره في Colab من أوله إلى آخره (روابط Colab في الجدول أعلاه).
-3. **أنشئوا مستودع المجموعة**: انسخوا هذا المستودع (Fork) أو نزّلوه، ثم اطلبوا من الوكيل
-   الإبقاء على مساركم فقط. الملف AGENTS.md يطلب من وكلاء البرمجة الشائعين شرح كل خطوة لكم.
-4. **اتبعوا الدليل** مرحلة بمرحلة، واكتبوا سجل المشروع JOURNAL.md: مدخل واحد لكل مرحلة.
+بعد تشغيل Compose افتح http://localhost:8014/docs. المنفذ 8014 افتراضي لتجنب التعارض؛ لتغييره استخدم متغير BEAN_PORT.
 
-جملة أولى لوكيلكم:
+اختيارنا الأول PyTorch CPU للحفاظ على سلوك الدفتر. يثبت `requirements.lock` إصدارات المكتبات ويثبت `model_manifest.json` مراجعة النموذج والبيانات. النموذج داخل الصورة النهائية؛ التشغيل لا يحتاج تنزيله ولا مفتاحاً. المستخدم `10001`، ونظام الملفات للقراءة فقط في Compose، والمنفذ محلي. صور Python الأساسية ذات وسم متحرك وليست digest ثابتاً؛ ذلك حد معروف لإعادة الإنتاج التامة. تحسين ONNX اختياري يحتاج قياس تطابق وحجم مستقلين.
 
-</div>
+خط CI يفحص التنسيق والاختبارات والأسرار، يبني الحاوية ويجربها، ثم ينشر إلى GHCR عند الدفع إلى `main` فقط. اختبارات النموذج تعمل على طلبات الدمج وأسبوعياً. راجع `GITHUB_SETUP.ar.md` قبل النشر.
 
-    Read AGENTS.md, GUIDE.ar.md and tracks/<track>/README.ar.md. Explain our model to us in plain
-    words, then guide us through Stage 1 one step at a time. Reply in Arabic.
+## القيود
 
-<div dir="rtl" lang="ar">
+ثقة 95% لا تعني ضمان الصحة. الصور من بيانات حقول أوغندا، والتقييم صغير ومحدد بثلاث فئات. النموذج لا يكتشف تلقائياً المحاصيل الأخرى أو الأمراض غير المعروفة. لا تتخذ قرار رش أو إتلاف محصول اعتماداً عليه وحده. هذه خدمة تعليمية محلية، وليست خدمة عامة محمية بالمصادقة ومجهزة لأحمال إنتاجية.
 
-### ما تسلّمونه
+## ملفات التسليم
 
-مستودعكم، وسجل المشروع، وعرض قصير يستطيع فيه أي عضو شرح أي مرحلة. جودة الكود والسرعة
-والواجهة الأمامية لا تدخل في التقييم.
+- `JOURNAL.md`: مسودة سجل المراحل؛ راجعوها وأضيفوا الأسماء والشرح الشخصي.
+- `WALKTHROUGH.ar.md`: دليل العرض والأسئلة مع الإجابات.
+- `SECURITY.ar.md`: مسار الأسرار وخطة الاستجابة للتسرب.
+- `GITHUB_SETUP.ar.md`: ما تبقى على GitHub.
+- `evidence/`: النتائج المقاسة والصور؛ لا تستبدلها بادعاءات غير متحققة.
 
-</div>
+مصادر المشروع: https://aie113.ibrahimalshehri.sa/#project وhttps://github.com/snow10100/aie113-projects.
+
+## واجهة المستخدم — بصيرة
+
+افتح http://localhost:8014/ بعد تشغيل Docker. ارفع صورة JPEG أو PNG بحجم لا يتجاوز
+5 ميجابايت، ثم اضغط «تحليل الصورة». تظهر معاينة الصورة والتصنيف ودرجات الفئات الثلاث.
+عند ثقة أقل من 80٪ تعرض الواجهة «غير متأكد». الثقة ليست ضمانًا لصحة التشخيص.
+زر «عرض تفسير بصري» يطلب خريطة الإخفاء من النموذج وقد يستغرق دقيقة؛ ليست خريطة لتحديد المرض.
+
+الواجهة عربية ومتجاوبة، وملفاتها في `src/bean_vision/static/`. تخدمها FastAPI من نفس
+المنفذ، لذلك لا تحتاج Node أو خادمًا إضافيًا. الخط الخارجي اختياري مع بديل محلي.
+الصورة تُرسل لخدمة المشروع للتحليل؛ الواجهة لا تضيف حفظًا للصور.

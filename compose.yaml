@@ -1,0 +1,15 @@
+services:
+  api:
+    build: .
+    image: bean-vision:local
+    ports:
+      - "127.0.0.1:${BEAN_PORT:-8014}:8000"
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 2g
+    cpus: 2

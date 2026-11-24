@@ -1,0 +1,10 @@
+{
+  "image_id": "sha256:61cbdfa6259ec6a6a9686c79ca7ce4b5a6c9099e7dc74fa7b71a7c21f672a0a2",
+  "image_bytes": 1977805934,
+  "image_MiB": 1886.2,
+  "uid": "10001",
+  "health": "healthy",
+  "read_only_root": true,
+  "host_port": 8014,
+  "built_with_torch": "2.9.1+cpu"
+}
