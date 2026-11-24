@@ -7,14 +7,12 @@ check, and you understand.** Understanding the process is full marks.
 
 Workshop site: https://aie113.ibrahimalshehri.sa · [بالعربية](#بالعربية)
 
-## The three tracks
+## Our track: Vision
 
 Every track uses real data, and every model explains its answers.
 
 | Track | The model | Open the notebook |
 |---|---|---|
-| [**Stocks**](tracks/stocks/) | Forecasts tomorrow's closing price of a Saudi stock from real market data, and shows which recent signals drove the forecast. A teaching example, not investment advice. | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/snow10100/aie113-projects/blob/main/tracks/stocks/notebook.ipynb) |
-| [**Fraud**](tracks/fraud/) | Flags card transactions that look like fraud, trained on real anonymised bank transactions, and gives the top reasons behind each alert. | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/snow10100/aie113-projects/blob/main/tracks/fraud/notebook.ipynb) |
 | [**Vision**](tracks/vision/) | Spots disease on bean leaves in real field photos with a published model, and shows which part of the leaf it looked at. | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/snow10100/aie113-projects/blob/main/tracks/vision/notebook.ipynb) |
 
 Each track's README explains its model in plain words, for people who have never seen machine
@@ -63,14 +61,10 @@ Code quality, speed and the front end are not graded.
 برمجة ذكي إلى خدمة ذكاء اصطناعي بمعايير الإنتاج. لن تكتبوا الكود بأيديكم: **أنتم تقررون،
 وتتحققون، وتفهمون.** فهم العملية يعني الدرجة الكاملة.
 
-### المسارات الثلاثة
+### مسارنا: الرؤية الحاسوبية
 
 كل مسار يستخدم بيانات حقيقية، وكل نموذج يشرح إجاباته:
 
-- **الأسهم:** يتوقع سعر إغلاق سهم سعودي في يوم التداول التالي من بيانات سوق حقيقية، ويوضح
-  الإشارات التي أثّرت في التوقع. مثال تعليمي وليس نصيحة استثمارية.
-- **الاحتيال:** يرصد عمليات البطاقات المشبوهة، مدرَّب على عمليات بنكية حقيقية مجهولة الهوية،
-  ويذكر أهم أسباب كل تنبيه.
 - **الرؤية الحاسوبية:** يكتشف أمراض أوراق الفاصوليا في صور حقيقية من الحقول بنموذج منشور،
   ويُظهر الجزء الذي نظر إليه النموذج في الورقة.
 
