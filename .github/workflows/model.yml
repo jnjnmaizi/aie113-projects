@@ -1,0 +1,24 @@
+name: Real model checks
+on:
+  schedule:
+    - cron: '0 2 * * 1'
+  workflow_dispatch:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  model:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --extra-index-url https://download.pytorch.org/whl/cpu -r requirements-dev.lock
+      - run: python scripts/download_model.py
+      - run: pytest -m real -q
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: model-evidence
+          path: evidence/behaviour.json
