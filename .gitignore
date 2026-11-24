@@ -19,3 +19,10 @@ tracks/*/data/
 *.agekey
 age-key.txt
 keys.txt
+
+artifacts/
+.cache/
+*.egg-info/
+.ruff_cache/
+*.bin
+secrets.local/

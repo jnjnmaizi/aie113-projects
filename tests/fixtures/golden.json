@@ -1,0 +1,57 @@
+{
+  "source": "Original notebook cell 12, before service refactoring",
+  "model_revision": "41f85ace09a4613c2c65495b3b8465c4ceee1d00",
+  "dataset_revision": "27aa014ce09b193e1a6f58112d4a66e0eddb69c5",
+  "cases": [
+    {
+      "index": 0,
+      "file": "leaf-0.png",
+      "true_label": "angular_leaf_spot",
+      "scores": [
+        0.9432013034820557,
+        0.031075140461325645,
+        0.02572355978190899
+      ]
+    },
+    {
+      "index": 43,
+      "file": "leaf-43.png",
+      "true_label": "bean_rust",
+      "scores": [
+        0.02537076734006405,
+        0.9399144053459167,
+        0.03471476957201958
+      ]
+    },
+    {
+      "index": 50,
+      "file": "leaf-50.png",
+      "true_label": "bean_rust",
+      "scores": [
+        0.13448216021060944,
+        0.8427995443344116,
+        0.022718312218785286
+      ]
+    },
+    {
+      "index": 86,
+      "file": "leaf-86.png",
+      "true_label": "healthy",
+      "scores": [
+        0.01845996268093586,
+        0.022700535133481026,
+        0.9588395357131958
+      ]
+    },
+    {
+      "index": 100,
+      "file": "leaf-100.png",
+      "true_label": "healthy",
+      "scores": [
+        0.020635047927498817,
+        0.019571363925933838,
+        0.9597936272621155
+      ]
+    }
+  ]
+}

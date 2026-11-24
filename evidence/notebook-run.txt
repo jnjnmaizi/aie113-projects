@@ -1,0 +1,57 @@
+RUNNING ORIGINAL NOTEBOOK CELL 4
+torch 2.15.0 | transformers 4.57.6 | datasets 5.0.1 | device: cpu
+RUNNING ORIGINAL NOTEBOOK CELL 6
+128 test photos | labels: ['angular_leaf_spot', 'bean_rust', 'healthy']
+label
+angular_leaf_spot    43
+bean_rust            43
+healthy              42
+photo sizes (width, height): {(500, 500)}
+RUNNING ORIGINAL NOTEBOOK CELL 8
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+model: nateraw/vit-base-beans (revision 41f85ac), 85.8 million numbers, about 343 MB
+model labels: {0: 'angular_leaf_spot', 1: 'bean_rust', 2: 'healthy'}
+photo preparation: resize to 224 x 224 pixels | colour mean [0.5, 0.5, 0.5] | colour std [0.5, 0.5, 0.5]
+what the model receives for one photo: (1, 3, 224, 224) | numbers between -1.0 and 0.92
+RUNNING ORIGINAL NOTEBOOK CELL 10
+RUNNING ORIGINAL NOTEBOOK CELL 12
+scored 128 photos in 7 s (0.05 s per photo on cpu)
+model accuracy:    96.9% (124 of 128 right)
+baseline accuracy: 33.6% (always answer 'angular_leaf_spot')
+average confidence: 94% when right, 81% when wrong (lowest 63%, highest 96%)
+below 80% confidence: 2 answers, of which 2 wrong (out of 4 wrong answers in total)
+RUNNING ORIGINAL NOTEBOOK CELL 14
+predicted          angular_leaf_spot  bean_rust  healthy
+label                                                   
+angular_leaf_spot                 40          3        0
+bean_rust                          0         43        0
+healthy                            0          1       41 
+
+Of 43 angular_leaf_spot photos, the model got 40 right and called 3 bean_rust.
+Of 43 bean_rust photos, the model got 43 right.
+Of 42 healthy photos, the model got 41 right and called 1 bean_rust.
+RUNNING ORIGINAL NOTEBOOK CELL 16
+photo 27: expert says angular_leaf_spot, model says angular_leaf_spot (81%); scored 169 covered versions
+photo 6: expert says angular_leaf_spot, model says bean_rust (75%); scored 169 covered versions
+RUNNING ORIGINAL NOTEBOOK CELL 18
+Photo 27 (model says angular_leaf_spot, 81% sure): the area that matters most is the top-centre of the photo; covering it there drops the confidence to 30%. 13 of 169 grey squares lowered it by more than 5 points.
+Photo 6 (model says bean_rust, 75% sure): the area that matters most is the top-centre of the photo; covering it there drops the confidence to 22%. 70 of 169 grey squares lowered it by more than 5 points.
+RUNNING ORIGINAL NOTEBOOK CELL 20
+artifacts/model/config.json: less than 0.1 MB
+artifacts/model/model.safetensors: 343.2 MB
+artifacts/model/preprocessor_config.json: less than 0.1 MB
+artifacts/model_info.json: less than 0.1 MB
+{"accuracy": 0.9688, "baseline_accuracy": 0.3359, "baseline": "always answer angular_leaf_spot", "recall_per_label": {"angular_leaf_spot": 0.9302, "bean_rust": 1.0, "healthy": 0.9762}, "confusion": {"angular_leaf_spot": {"angular_leaf_spot": 40, "bean_rust": 3, "healthy": 0}, "bean_rust": {"angular_leaf_spot": 0, "bean_rust": 43, "healthy": 0}, "healthy": {"angular_leaf_spot": 0, "bean_rust": 1, "healthy": 41}}, "not_sure_below": 0.8, "seconds_per_photo": 0.052, "device": "cpu"}
+RUNNING ORIGINAL NOTEBOOK CELL 22
+expert label: bean_rust
+{
+  "label": "bean_rust",
+  "confidence": 0.843,
+  "scores": {
+    "angular_leaf_spot": 0.134,
+    "bean_rust": 0.843,
+    "healthy": 0.023
+  },
+  "model_version": "1.0.0"
+}
+ORIGINAL NOTEBOOK COMPLETE
